@@ -1,6 +1,6 @@
 {
   "name": "@actvalue/mongo-client",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Singleton MongoDB client for AWS Lambda",
   "main": "./dist/index.js",
   "exports": {
@@ -22,6 +22,10 @@
   ],
   "author": "ActValue",
   "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "github:pmosconi/mongo-client"
+  },
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/eslint-parser": "^7.21.8",
