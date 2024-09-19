@@ -1,6 +1,6 @@
 {
   "name": "@actvalue/mongo-client",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Singleton MongoDB client for AWS Lambda",
   "main": "./dist/index.js",
   "exports": {
@@ -27,26 +27,20 @@
       "url": "github:pmosconi/mongo-client"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.11",
-    "@babel/eslint-parser": "^7.22.11",
-    "@tsconfig/node18": "^18.2.1",
-    "@types/node": "^18.16.1",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "eslint": "^8.48.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-n": "^16.0.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "prettier": "^3.0.3",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.3",
-    "vitest-mongodb": "^0.0.5"
+    "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.x",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^8.x",
+    "prettier": "^3.3.3",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1",
+    "vitest-mongodb": "^1.0.0"
   },
   "dependencies": {
-    "mongodb": "^6.6.0"
+    "mongodb": "^6.9.0"
   }
 }
