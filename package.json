@@ -1,6 +1,6 @@
 {
   "name": "@actvalue/mongo-client",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Singleton MongoDB client for AWS Lambda",
   "main": "./dist/index.js",
   "exports": {
@@ -27,20 +27,20 @@
       "url": "github:pmosconi/mongo-client"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/eslint-parser": "^7.25.1",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.x",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
+    "@babel/core": "^7.26.0",
+    "@babel/eslint-parser": "^7.25.9",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.x",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^8.x",
-    "prettier": "^3.3.3",
-    "tsup": "^8.3.0",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.1",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
     "vitest-mongodb": "^1.0.0"
   },
   "dependencies": {
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.12.0"
   }
 }
