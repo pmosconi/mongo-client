@@ -2,6 +2,33 @@
 lib/
 types/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg
+.mypy_cache/
+.coverage
+htmlcov/
+
 # Logs
 logs
 *.log

@@ -1,0 +1,17 @@
+{
+  "python.defaultInterpreterPath": "./Python/.venv/bin/python",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "Python/tests",
+    "-m",
+    "unit",
+    "-v"
+  ],
+  "python.testing.cwd": "${workspaceFolder}/Python",
+  "python.testing.unittestEnabled": false,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.extraPaths": [
+    "./Python/src"
+  ]
+}
