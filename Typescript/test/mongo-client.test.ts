@@ -1,6 +1,10 @@
 import { expect, test, beforeAll, afterAll } from "vitest";
 import { setup, teardown } from "vitest-mongodb";
 import { mongo } from "../src/index";
+
+declare global {
+  var __MONGO_URI__: string;
+}
  
 beforeAll(async () => {
   await setup();
