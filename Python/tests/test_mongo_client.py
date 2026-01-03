@@ -6,7 +6,17 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from mongo_client import mongo
+from mongo_client import MongoDbConnection
+
+
+@pytest.fixture
+async def mongo() -> AsyncGenerator[MongoDbConnection]:
+    """Create a MongoDB connection instance for testing."""
+    instance = MongoDbConnection()
+    yield instance
+    # Reset the state after each test
+    instance._db = None
+    instance._is_connecting = False
 
 
 @pytest.fixture(autouse=True)
@@ -15,9 +25,6 @@ async def setup_env() -> AsyncGenerator[None]:
     os.environ["MONGO_URL"] = "mongodb://localhost:27017/testdb"
     os.environ["MONGO_POOL_SIZE"] = "10"
     yield
-    # Reset the singleton state after each test
-    mongo._db = None
-    mongo._is_connecting = False
 
 
 @pytest.fixture
@@ -31,7 +38,7 @@ def mock_client() -> MagicMock:
 
 @pytest.mark.unit
 @patch("mongo_client.client.AsyncMongoClient")
-async def test_mongo_client_basic(mock_mongo_client: MagicMock, mock_client: MagicMock) -> None:
+async def test_mongo_client_basic(mock_mongo_client: MagicMock, mock_client: MagicMock, mongo: MongoDbConnection) -> None:
     """Test basic MongoDB client functionality."""
     # Setup mock
     mock_mongo_client.return_value = mock_client
@@ -70,7 +77,7 @@ async def test_mongo_client_basic(mock_mongo_client: MagicMock, mock_client: Mag
 
 @pytest.mark.unit
 @patch("mongo_client.client.AsyncMongoClient")
-async def test_mongo_client_reuse(mock_mongo_client: MagicMock, mock_client: MagicMock) -> None:
+async def test_mongo_client_reuse(mock_mongo_client: MagicMock, mock_client: MagicMock, mongo: MongoDbConnection) -> None:
     """Test that the same connection is reused."""
     # Setup mock
     mock_mongo_client.return_value = mock_client
@@ -103,7 +110,7 @@ async def test_mongo_client_reuse(mock_mongo_client: MagicMock, mock_client: Mag
 @pytest.mark.unit
 @patch("mongo_client.client.AsyncMongoClient")
 async def test_mongo_client_concurrent_reuse(
-    mock_mongo_client: MagicMock, mock_client: MagicMock
+    mock_mongo_client: MagicMock, mock_client: MagicMock, mongo: MongoDbConnection
 ) -> None:
     """Test concurrent connections return the same instance."""
     import asyncio

@@ -62,11 +62,14 @@ const db2 = await mongo.getDb(); // Returns the same connection
 ```python
 import asyncio
 import os
-from mongo_client import mongo
+from mongo_client import MongoDbConnection
 
 # Set environment variables
 os.environ['MONGO_URL'] = 'mongodb+srv://<your-connection>/database'
 os.environ['MONGO_POOL_SIZE'] = '5'  # optional, default is 5
+
+# Create instance at module level
+mongo = MongoDbConnection()
 
 async def main():
     # Use in your code
@@ -103,16 +106,20 @@ export const handler = async (event: any) => {
 
 ```python
 import os
-from mongo_client import mongo
+from mongo_client import MongoDbConnection
 
-# Connection is initialized outside handler for reuse
 async def lambda_handler(event, context):
+    # IMPORTANT: Initialize within handler due to asyncio event loop limitations
+    mongo = MongoDbConnection()
+    
     db = await mongo.get_db()
     collection = db['items']
     
     result = await collection.find_one({'_id': event['id']})
     return {'statusCode': 200, 'body': result}
 ```
+
+> ⚠️ **Python Lambda Note**: The Python client must be initialized inside the handler function due to asyncio event loop binding. Lambda may create new event loops between invocations, and AsyncMongoClient is bound to the loop it was created on. The TypeScript version does not have this limitation.
 
 ## Configuration
 

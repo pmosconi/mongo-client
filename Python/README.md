@@ -24,12 +24,15 @@ The client is used to create and share MongoDB connection pool.
 
 ```python
 import asyncio
-from mongo_client import mongo
+import os
+from mongo_client import MongoDbConnection
 
 # Initialize your connection parameters and optionally set pool size
-import os
 os.environ['MONGO_URL'] = 'mongodb+srv://<your-connection>/database'
 os.environ['MONGO_POOL_SIZE'] = '5'  # default value
+
+# Create a singleton instance at module level
+mongo = MongoDbConnection()
 
 async def main():
     # Create connection pool if not existing already
@@ -52,20 +55,26 @@ Perfect for serverless environments where connection reuse is critical:
 
 ```python
 import os
-from mongo_client import mongo
+from mongo_client import MongoDbConnection
 
 # Set environment variables (typically from Lambda configuration)
 os.environ['MONGO_URL'] = 'mongodb+srv://...'
 os.environ['MONGO_POOL_SIZE'] = '5'
 
 async def lambda_handler(event, context):
-    # Connection is reused across Lambda invocations
+    # IMPORTANT: Initialize within handler due to Python asyncio event loop limitations
+    # Each Lambda invocation may create a new event loop, and AsyncMongoClient
+    # is bound to the event loop it was created on
+    mongo = MongoDbConnection()
+    
     db = await mongo.get_db()
     collection = db["my_collection"]
     
     result = await collection.find_one({"_id": event["id"]})
     return {"statusCode": 200, "body": result}
 ```
+
+> ⚠️ **Python Lambda Note**: Unlike the TypeScript version, the Python client should be initialized inside the handler function. This is because Python's AsyncMongoClient binds to the asyncio event loop at creation time. AWS Lambda may create new event loops between invocations, causing "Cannot use AsyncMongoClient in different event loop" errors if the instance is created at module level.
 
 ## Features
 

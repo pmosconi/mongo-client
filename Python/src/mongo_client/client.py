@@ -85,7 +85,3 @@ class MongoDbConnection:
             if self._db is not None:
                 return self._db
             return await self._mongo_connect()
-
-
-# Global singleton instance
-mongo = MongoDbConnection()
